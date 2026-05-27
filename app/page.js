@@ -99,35 +99,40 @@ export default function Page() {
   }, [players]);
 
   return (
-    <div className="min-h-screen bg-[#050816] text-white">
+    <div className="min-h-screen bg-[#050816] text-white overflow-hidden">
 
       {/* BACKGROUND */}
       <div className="fixed inset-0 opacity-30 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.15),transparent_50%)]" />
+
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-green-500/10 blur-3xl rounded-full" />
+
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-blue-500/10 blur-3xl rounded-full" />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto p-6">
 
         {/* HEADER */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 mb-8">
+        <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-6 mb-10">
 
           <div>
-            <p className="text-green-400 text-sm font-semibold tracking-[0.3em] uppercase">
+            <p className="text-green-400 text-sm font-semibold tracking-[0.35em] uppercase">
               Albion Online
             </p>
 
-            <h1 className="text-4xl font-black mt-2">
-              Guild Bank Tracker Rabbit Riders Community
+            <h1 className="text-4xl md:text-5xl font-black mt-3 leading-tight">
+              Guild Bank Tracker
             </h1>
 
-            <p className="text-gray-400 mt-2">
-              Track guild bank withdraw and deposit transfers.
+            <p className="text-gray-400 mt-3 text-lg">
+              Rabbit Riders Community chest tracking system.
             </p>
           </div>
 
           {/* UPLOAD BUTTONS */}
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-4">
 
+            {/* WITHDRAW */}
             <label className="cursor-pointer">
               <input
                 type="file"
@@ -140,12 +145,70 @@ export default function Page() {
                 }
               />
 
-              <div className="h-14 px-6 rounded-2xl bg-green-600 hover:bg-green-500 transition flex items-center gap-3 font-semibold shadow-lg shadow-green-900/40">
-                <Upload size={18} />
-                Upload Withdraw Logs
+              <div
+                className="
+                  min-w-[280px]
+                  h-16
+                  px-6
+                  rounded-3xl
+                  bg-gradient-to-br
+                  from-green-500
+                  to-emerald-700
+                  hover:scale-[1.02]
+                  transition
+                  flex
+                  items-center
+                  justify-between
+                  gap-4
+                  font-semibold
+                  shadow-2xl
+                  shadow-green-900/40
+                "
+              >
+
+                <div className="flex items-center gap-3">
+
+                  <div
+                    className="
+                      w-10 h-10
+                      rounded-2xl
+                      bg-white/10
+                      flex items-center justify-center
+                    "
+                  >
+                    <Upload size={18} />
+                  </div>
+
+                  <div>
+                    <p className="font-bold">
+                      Withdraw Logs
+                    </p>
+
+                    <p className="text-xs text-white/70">
+                      Upload Withdraw Logs files
+                    </p>
+                  </div>
+
+                </div>
+
+                <span
+                  className="
+                    text-xs
+                    px-3
+                    py-1.5
+                    rounded-full
+                    bg-black/20
+                    border border-white/10
+                    font-bold
+                  "
+                >
+                  {withdrawFiles.length} files
+                </span>
+
               </div>
             </label>
 
+            {/* DEPOSIT */}
             <label className="cursor-pointer">
               <input
                 type="file"
@@ -158,9 +221,66 @@ export default function Page() {
                 }
               />
 
-              <div className="h-14 px-6 rounded-2xl bg-blue-600 hover:bg-blue-500 transition flex items-center gap-3 font-semibold shadow-lg shadow-blue-900/40">
-                <Upload size={18} />
-                Upload Deposit Logs
+              <div
+                className="
+                  min-w-[280px]
+                  h-16
+                  px-6
+                  rounded-3xl
+                  bg-gradient-to-br
+                  from-blue-500
+                  to-indigo-700
+                  hover:scale-[1.02]
+                  transition
+                  flex
+                  items-center
+                  justify-between
+                  gap-4
+                  font-semibold
+                  shadow-2xl
+                  shadow-blue-900/40
+                "
+              >
+
+                <div className="flex items-center gap-3">
+
+                  <div
+                    className="
+                      w-10 h-10
+                      rounded-2xl
+                      bg-white/10
+                      flex items-center justify-center
+                    "
+                  >
+                    <Upload size={18} />
+                  </div>
+
+                  <div>
+                    <p className="font-bold">
+                      Deposit Logs
+                    </p>
+
+                    <p className="text-xs text-white/70">
+                      Upload Deposite Logs files
+                    </p>
+                  </div>
+
+                </div>
+
+                <span
+                  className="
+                    text-xs
+                    px-3
+                    py-1.5
+                    rounded-full
+                    bg-black/20
+                    border border-white/10
+                    font-bold
+                  "
+                >
+                  {depositFiles.length} files
+                </span>
+
               </div>
             </label>
 
@@ -169,7 +289,7 @@ export default function Page() {
         </div>
 
         {/* ACTION BAR */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-4 mb-6">
+        <div className="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-4 mb-8">
 
           <div className="flex flex-col lg:flex-row gap-4">
 
@@ -182,20 +302,21 @@ export default function Page() {
               />
 
               <input
-                placeholder="Search player or item..."
+                placeholder="Search player..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="
                   w-full
-                  h-14
+                  h-16
                   pl-12
                   pr-4
-                  rounded-2xl
+                  rounded-3xl
                   bg-white/[0.04]
                   border border-white/10
                   outline-none
                   focus:border-blue-500
                   transition
+                  backdrop-blur-xl
                 "
               />
 
@@ -204,19 +325,30 @@ export default function Page() {
             {/* BUTTON */}
             <button
               onClick={upload}
-              disabled={loading}
+              disabled={
+                loading ||
+                withdrawFiles.length === 0 ||
+                depositFiles.length === 0
+              }
               className="
-                h-14
-                px-8
-                rounded-2xl
-                bg-indigo-600
-                hover:bg-indigo-500
-                disabled:opacity-50
+                h-16
+                px-10
+                rounded-3xl
+                bg-gradient-to-r
+                from-indigo-600
+                to-blue-600
+                hover:scale-[1.02]
+                disabled:opacity-40
+                disabled:hover:scale-100
                 transition
-                font-semibold
+                font-bold
+                shadow-2xl
+                shadow-blue-900/30
               "
             >
-              {loading ? "Analyzing..." : "Run Analysis"}
+              {loading
+                ? "Analyzing..."
+                : "Run Analysis"}
             </button>
 
           </div>
@@ -224,7 +356,7 @@ export default function Page() {
         </div>
 
         {/* STATS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-7">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-8">
 
           <StatCard
             title="Withdraw Logs"
@@ -253,7 +385,7 @@ export default function Page() {
         </div>
 
         {/* PLAYERS */}
-        <div className="space-y-4">
+        <div className="space-y-5">
 
           {filtered.map(([player, p]) => {
             const open = openPlayers[player] || false;
@@ -286,11 +418,12 @@ export default function Page() {
               <div
                 key={player}
                 className="
-                  rounded-3xl
+                  rounded-[30px]
                   border border-white/10
                   bg-white/[0.03]
                   overflow-hidden
                   backdrop-blur-xl
+                  shadow-2xl
                 "
               >
 
@@ -306,41 +439,42 @@ export default function Page() {
                   "
                 >
 
-                  <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-5">
+                  <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6">
 
                     <div className="flex items-center gap-4">
 
                       <button
                         className="
-                          w-8 h-8
-                          rounded-full
+                          w-10 h-10
+                          rounded-2xl
                           bg-white/5
                           flex items-center justify-center
                         "
                       >
                         {open ? (
-                          <ChevronDown size={18} />
+                          <ChevronDown size={20} />
                         ) : (
-                          <ChevronRight size={18} />
+                          <ChevronRight size={20} />
                         )}
                       </button>
 
                       <div
                         className="
-                          w-14 h-14
+                          w-16 h-16
                           rounded-full
                           bg-gradient-to-br
                           from-green-500
                           to-emerald-700
                           flex items-center justify-center
-                          font-bold text-lg
+                          text-2xl
+                          shadow-lg
                         "
                       >
                         ⚔️
                       </div>
 
                       <div>
-                        <h2 className="text-2xl font-bold">
+                        <h2 className="text-2xl font-black">
                           {player}
                         </h2>
 
@@ -351,7 +485,7 @@ export default function Page() {
 
                     </div>
 
-                    {/* STATS */}
+                    {/* MINI STATS */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
 
                       <MiniStat
@@ -392,7 +526,7 @@ export default function Page() {
                 {open && (
                   <div className="px-4 pb-4 overflow-x-auto">
 
-                    <table className="w-full border-separate border-spacing-y-2">
+                    <table className="w-full border-separate border-spacing-y-3">
 
                       <thead>
                         <tr className="text-gray-400 text-sm">
@@ -446,15 +580,15 @@ export default function Page() {
                               >
 
                                 {/* ITEM */}
-                                <td className="rounded-l-2xl px-4 py-3">
+                                <td className="rounded-l-3xl px-4 py-4">
 
-                                  <div className="flex items-center gap-3">
+                                  <div className="flex items-center gap-4">
 
                                     <img
                                       src={
                                         item?.resolved?.image
                                       }
-                                      className="w-12 h-12 rounded-lg bg-black/30"
+                                      className="w-14 h-14 rounded-2xl bg-black/30 object-cover"
                                       onError={(e) => {
                                         e.currentTarget.src =
                                           "https://render.albiononline.com/v1/item/UNKNOWN.png";
@@ -462,11 +596,15 @@ export default function Page() {
                                     />
 
                                     <div>
-                                      <p className="font-semibold">
+                                      <p className="font-bold text-lg">
                                         {item?.item}
                                       </p>
 
-                                      <p className="text-xs text-gray-400">
+                                      <p className="text-xs text-gray-400 mt-1">
+                                        Withdraw Date:
+                                      </p>
+
+                                      <p className="text-sm text-gray-300">
                                         {
                                           item?.withdraw
                                             ?.date
@@ -479,41 +617,62 @@ export default function Page() {
                                 </td>
 
                                 {/* WITHDRAW */}
-                                <td className="text-center font-semibold text-red-400">
-                                  {item?.withdraw?.amount ||
-                                    0}
+                                <td className="text-center">
+
+                                  <div className="inline-flex px-4 py-2 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 font-black text-lg">
+                                    -
+                                    {item?.withdraw?.amount ||
+                                      0}
+                                  </div>
+
                                 </td>
 
                                 {/* DEPOSIT */}
-                                <td className="text-center font-semibold text-emerald-400">
-                                  {deposit}
+                                <td className="text-center">
+
+                                  <div className="inline-flex px-4 py-2 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-lg">
+                                    +
+                                    {deposit}
+                                  </div>
+
                                 </td>
 
                                 {/* PENDING */}
-                                <td
-                                  className={`
-                                    text-center font-bold
-                                    ${
-                                      pending > 0
-                                        ? "text-red-400"
-                                        : "text-emerald-400"
-                                    }
-                                  `}
-                                >
-                                  {pending}
+                                <td className="text-center">
+
+                                  <div
+                                    className={`
+                                      inline-flex
+                                      px-4
+                                      py-2
+                                      rounded-2xl
+                                      font-black
+                                      text-lg
+                                      border
+                                      ${
+                                        pending > 0
+                                          ? "bg-red-500/10 border-red-500/20 text-red-400"
+                                          : "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
+                                      }
+                                    `}
+                                  >
+                                    {pending}
+                                  </div>
+
                                 </td>
 
                                 {/* STATUS */}
-                                <td className="rounded-r-2xl text-center">
+                                <td className="rounded-r-3xl text-center">
 
                                   <span
                                     className={`
                                       inline-flex
-                                      px-4
-                                      py-1.5
+                                      px-5
+                                      py-2
                                       rounded-full
                                       text-xs
-                                      font-bold
+                                      font-black
+                                      tracking-wider
                                       border
                                       ${
                                         isOk
@@ -578,9 +737,11 @@ function StatCard({
         border
         bg-gradient-to-br
         ${styles[color]}
-        p-5
+        p-6
+        backdrop-blur-xl
       `}
     >
+
       <div className="flex items-center justify-between">
 
         <div>
@@ -588,27 +749,28 @@ function StatCard({
             {title}
           </p>
 
-          <h2 className="text-4xl font-black mt-1">
+          <h2 className="text-4xl font-black mt-2">
             {value}
           </h2>
         </div>
 
         <div
           className="
-            w-14 h-14
-            rounded-2xl
+            w-16 h-16
+            rounded-3xl
             bg-white/10
             flex items-center justify-center
           "
         >
           {color === "red" ? (
-            <AlertTriangle />
+            <AlertTriangle size={28} />
           ) : (
-            <Package />
+            <Package size={28} />
           )}
         </div>
 
       </div>
+
     </div>
   );
 }
@@ -620,11 +782,11 @@ function MiniStat({
 }) {
   return (
     <div className="text-center">
-      <p className="text-xs text-gray-500 mb-1">
+      <p className="text-xs text-gray-500 mb-1 uppercase tracking-wider">
         {label}
       </p>
 
-      <p className={`text-2xl font-bold ${color}`}>
+      <p className={`text-2xl font-black ${color}`}>
         {value}
       </p>
     </div>
