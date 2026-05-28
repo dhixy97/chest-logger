@@ -72,20 +72,22 @@ export default function Page() {
     let items = 0;
 
     Object.values(players).forEach((p) => {
-      withdraw += p?.totalWithdraw || 0;
 
       (p?.items || []).forEach((i) => {
+        const withdrawAmount =
+          i?.withdraw?.amount || 0;
+
         const dep = (i?.deposit || []).reduce(
           (a, b) => a + (b.amount || 0),
           0
         );
 
+        withdraw += withdrawAmount;
         deposit += dep;
         items += 1;
 
         if (i.status !== "OK") {
-          pending +=
-            (i?.withdraw?.amount || 0) - dep;
+          pending += withdrawAmount - dep;
         }
       });
     });
@@ -261,7 +263,7 @@ export default function Page() {
                     </p>
 
                     <p className="text-xs text-white/70">
-                      Upload Deposite Logs files
+                      Upload Deposit Logs files
                     </p>
                   </div>
 
@@ -414,6 +416,13 @@ export default function Page() {
                 );
               }, 0) || 0;
 
+            const totalWithdraw =
+              (p?.items || []).reduce(
+                (acc, item) =>
+                  acc + (item?.withdraw?.amount || 0),
+                0
+              );
+
             return (
               <div
                 key={player}
@@ -490,7 +499,7 @@ export default function Page() {
 
                       <MiniStat
                         label="Withdraw"
-                        value={p?.totalWithdraw || 0}
+                        value={totalWithdraw}
                         color="text-red-400"
                       />
 
@@ -579,7 +588,6 @@ export default function Page() {
                                 "
                               >
 
-                                {/* ITEM */}
                                 <td className="rounded-l-3xl px-4 py-4">
 
                                   <div className="flex items-center gap-4">
@@ -616,7 +624,6 @@ export default function Page() {
 
                                 </td>
 
-                                {/* WITHDRAW */}
                                 <td className="text-center">
 
                                   <div className="inline-flex px-4 py-2 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 font-black text-lg">
@@ -627,7 +634,6 @@ export default function Page() {
 
                                 </td>
 
-                                {/* DEPOSIT */}
                                 <td className="text-center">
 
                                   <div className="inline-flex px-4 py-2 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-black text-lg">
@@ -637,7 +643,6 @@ export default function Page() {
 
                                 </td>
 
-                                {/* PENDING */}
                                 <td className="text-center">
 
                                   <div
@@ -661,7 +666,6 @@ export default function Page() {
 
                                 </td>
 
-                                {/* STATUS */}
                                 <td className="rounded-r-3xl text-center">
 
                                   <span
@@ -711,8 +715,6 @@ export default function Page() {
     </div>
   );
 }
-
-/* COMPONENTS */
 
 function StatCard({
   title,
